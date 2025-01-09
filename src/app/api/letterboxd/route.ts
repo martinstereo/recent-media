@@ -36,6 +36,7 @@ export async function GET(request: Request) {
         status: response.status,
       });
     }
+
     const rssData = await response.text();
     const $: CheerioAPI = load(rssData);
     const films: LetterboxdFilm[] = [];

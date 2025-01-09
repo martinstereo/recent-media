@@ -9,7 +9,6 @@ interface FilmListProps {
 }
 
 function FilmList({ films }: FilmListProps) {
-  console.log(films);
   return (
     <div className='film-list-container'>
       {films.map((film, index) => (
