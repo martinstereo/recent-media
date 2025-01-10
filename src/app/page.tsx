@@ -1,8 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
-import styles from './page.module.css';
 import FilmList from '@/components/film-list/film-list.component';
 import { LetterboxdFilm } from './api/letterboxd/route';
+import styles from './page.module.css';
 
 export default function Home() {
   const [letterboxdData, setLetterboxdData] = useState<{
@@ -10,28 +10,30 @@ export default function Home() {
   } | null>(null);
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchLetterboxdData() {
       const username = 'martinstereo';
       const response = await fetch(`/api/letterboxd?username=${username}`);
       const result = await response.json();
       setLetterboxdData({
-        films: result.films.slice(0, 50),
+        films: result.films.slice(0, 8),
       });
     }
 
-    fetchData();
+    fetchLetterboxdData();
   }, []);
 
   return (
     <div className={styles.page}>
-      <div className='films-container'>
-        <h1>Letterboxd Data</h1>
-        {letterboxdData ? (
-          <FilmList films={letterboxdData.films} />
-        ) : (
-          <p>Loading Films...</p>
-        )}
-      </div>
+      <main className={styles.main}>
+        <div className={styles.filmsContainer}>
+          <h1>My recently watched films!</h1>
+          {letterboxdData ? (
+            <FilmList films={letterboxdData.films} />
+          ) : (
+            <p>Loading Films...</p>
+          )}
+        </div>
+      </main>
     </div>
   );
 }

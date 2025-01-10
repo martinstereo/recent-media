@@ -1,33 +1,65 @@
 .film-container {
   display: flex;
-  padding: 16px;
-  border: 10px solid #000;
-  border-radius: 8px;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 16px;
 
   .image-container {
-    margin-right: 16px;
+    box-shadow: 1px 1px 4px;
+    display: block;
+    border-radius: 5px;
+    margin: 0;
+    height: 225px;
 
-    img {
-      border-radius: 4px;
-    }
 
     .placeholder-image {
-      width: 200px;
-      height: 300px;
+      width: 150px;
+      height: 225px;
       background-color: #f0f0f0;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #888;
-      border-radius: 4px;
     }
   }
 
   .film-details {
-    h2 {
-      margin: 0 0 8px 0;
-      font-size: 1.5em;
+    margin-top: 4px;
+      width: 100%;
+      text-align: center;
+
+    .film-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1em;
+
+      .rating-container {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        color: #555;
+        font-size: 1em;
+        .rating {
+          display: flex;
+          align-items: center;
+        }
+
+        .rewatch-icon {
+
+          display: flex;
+          align-items: center;
+
+          svg {
+            width: 0.8em;
+            height: 0.8em;
+          }
+        }
+      }
+
+      .watched-date {
+        color: #555;
+      }
     }
 
     p {

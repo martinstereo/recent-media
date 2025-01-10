@@ -2,6 +2,8 @@ import Image from 'next/image';
 import { convertRatingToStars } from '@/utils/convertRatingToStars';
 import { LetterboxdFilm } from '@/app/api/letterboxd/route';
 
+import AutorenewIcon from '@mui/icons-material/Autorenew';
+
 import './film.styles.scss';
 
 interface FilmProps {
@@ -9,36 +11,47 @@ interface FilmProps {
 }
 
 function Film({ film }: FilmProps) {
-  const { link, watchedDate, rewatch, filmTitle, filmYear, memberRating, imageUrl } =
-    film;
+  const {
+    /* link, */ watchedDate,
+    rewatch,
+    filmTitle,
+    /* filmYear, */ memberRating,
+    imageUrl,
+  } = film;
   const ratingStars = convertRatingToStars(memberRating);
+  const formattedDateWatched = new Date(watchedDate).toLocaleDateString('en-UK', {
+    day: '2-digit',
+    month: 'short',
+  });
 
   return (
     <div className='film-container'>
       <div className='image-container'>
-        <a href={`${link}`}>
-          {/* Conditionally render the imageUrl */}
-          {imageUrl ? (
-            <Image src={`${imageUrl}`} alt={filmTitle} width={200} height={300} />
-          ) : (
-            <div className='placeholder-image'>No Image Available</div>
-          )}
-        </a>
+        {/* Conditionally render the imageUrl */}
+        {imageUrl ? (
+          <Image
+            src={`${imageUrl}`}
+            alt={filmTitle}
+            width={150}
+            height={225}
+            style={{ borderRadius: '5px' }}
+          />
+        ) : (
+          <div className='placeholder-image'>No Image Available</div>
+        )}
       </div>
       <div className='film-details'>
-        <h2>
-          {filmTitle} ({filmYear})
-        </h2>
-
-        {ratingStars ? (
-          <p>
-            Rating: {ratingStars} {rewatch === 'Yes' && <span>🔄</span>}
-          </p>
-        ) : (
-          rewatch === 'Yes' && <span>🔄</span>
-        )}
-
-        <p>Date Watched: {watchedDate}</p>
+        <div className='film-meta'>
+          <div className='rating-container'>
+            {ratingStars && <span className='rating'>{ratingStars}</span>}
+            {rewatch === 'Yes' && (
+              <span className='rewatch-icon'>
+                <AutorenewIcon fontSize='small' />
+              </span>
+            )}
+          </div>
+          <span className='watched-date'>{formattedDateWatched}</span>
+        </div>
       </div>
     </div>
   );
