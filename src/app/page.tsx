@@ -26,7 +26,7 @@ export default function Home() {
     <div className={styles.page}>
       <main className={styles.main}>
         <div className={styles.filmsContainer}>
-          <h1>My recently watched films!</h1>
+          <h2 className={styles.mediaTitle}>martinstereo's recently watched films!</h2>
           {letterboxdData ? (
             <FilmList films={letterboxdData.films} />
           ) : (
