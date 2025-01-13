@@ -1,7 +1,7 @@
 const LASTFM_USERNAME = process.env.LASTFM_USERNAME;
 const LASTFM_API_KEY = process.env.LASTFM_API_KEY;
 
-export const endpointMap: Record<Category, string> = {
+const endpointMap: Record<Category, string> = {
   tracks: 'user.getTopTracks',
   albums: 'user.getTopAlbums',
   artists: 'user.getTopArtists',
