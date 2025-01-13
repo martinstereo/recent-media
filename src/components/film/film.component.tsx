@@ -15,7 +15,8 @@ function Film({ film }: FilmProps) {
     /* link, */ watchedDate,
     rewatch,
     filmTitle,
-    /* filmYear, */ memberRating,
+    filmYear,
+    memberRating,
     imageUrl,
   } = film;
   const ratingStars = convertRatingToStars(memberRating);
@@ -29,13 +30,21 @@ function Film({ film }: FilmProps) {
       <div className='image-container'>
         {/* Conditionally render the imageUrl */}
         {imageUrl ? (
-          <Image
-            src={`${imageUrl}`}
-            alt={filmTitle}
-            width={150}
-            height={225}
-            style={{ borderRadius: '5px' }}
-          />
+          <div className='image-wrapper'>
+            <Image
+              src={`${imageUrl}`}
+              alt={filmTitle}
+              width={150}
+              height={225}
+              className='film-image'
+              style={{ borderRadius: '5px' }}
+            />
+            <div className='overlay'>
+              <span className='film-title'>
+                {filmTitle} ({filmYear})
+              </span>
+            </div>
+          </div>
         ) : (
           <div className='placeholder-image'>No Image Available</div>
         )}

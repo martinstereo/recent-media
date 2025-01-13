@@ -1,7 +1,47 @@
+.films-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: auto;
+}
+
+.films.header {
+  align-self: flex-start;
+  margin-bottom: 1em;
+}
+
 .film-list-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 2em;
   justify-content: center;
+}
+
+.spinner-container {
+  height: 250px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: auto;
+  justify-content: center;
+}
+
+@media (max-width: 800px) {
+  .films-container {
+    padding: 0 1em;
+  }
+  .film-list-container {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    max-width: 100vw;
+    gap: 1.5em;
+    justify-content: flex-start;
+        padding-left: 1em; // Adjust the value as needed
+          padding-right: 1em; // Adjust the value as needed
+  }
+  .film-list-container>* {
+    scroll-snap-align: start;
+  }
 }

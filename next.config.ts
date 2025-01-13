@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'a.ltrbxd.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'lastfm.freetls.fastly.net',
+      },
     ],
   },
 };

@@ -1,0 +1,63 @@
+.music-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.music-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2em;
+  justify-content: center;
+}
+
+.spinner-container {
+  height: 279px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: auto;
+  justify-content: center;
+}
+.dropdown-container {
+  white-space: nowrap;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+.dropdown-menu {
+  font-size: 1.5em; // Adjust the font size to match the h2 element
+  font-weight: 100;
+  color: #EEEEEE; // Adjust the color to match the h2 element
+  background-color: #222831; // Adjust the background color if needed
+  border-radius: 4px;
+  margin: 2.5rem 0;
+}
+
+@media (max-width: 800px) {
+  .dropdown-container {
+    width: 100%;
+    gap: 0.2rem; // Reduce gap between elements
+  }
+
+  .dropdown-menu {
+    font-size: 1rem; // Slightly smaller font size for mobile
+  }
+  .music-list {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    max-width: 100vw;
+    gap: 1.5em;
+    justify-content: flex-start;
+    padding-left: 1em; // Adjust the value as needed
+    padding-right: 1em; // Adjust the value as needed
+  }
+  .music-list>* {
+    scroll-snap-align: start;
+  }
+}

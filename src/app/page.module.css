@@ -1,31 +1,8 @@
 .page {
-  align-items: center;
-  justify-items: center;
   font-family: var(--font-geist-sans);
-}
-
-.main {
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  grid-row-start: 2;
-}
-
-.filmsContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* Centers child elements horizontally */
-  text-align: center;
-  /* Centers text inside child elements */
-}
-
-.mediaTitle {
-  font-weight: 300;
-  font-size: 2rem;
-  color: #333;
-  margin-bottom: 16px;
-  text-align: center;
+  min-height: 100vh;
 }
 
 .main ol {
@@ -40,12 +17,4 @@
 
 .main li:not(:last-of-type) {
   margin-bottom: 8px;
-}
-
-.main code {
-  font-family: inherit;
-  background: var(--gray-alpha-100);
-  padding: 2px 4px;
-  border-radius: 4px;
-  font-weight: 600;
 }

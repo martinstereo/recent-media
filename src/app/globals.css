@@ -3,11 +3,58 @@
   --font-geist-mono: 'Geist Mono', monospace;
 }
 
+html,
 body {
-  font-family: var(--font-geist-sans);
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+@media screen and (max-width: 800px) {
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  * {
+    box-sizing: border-box;
+  }
 }
 
-/* Example of using Geist Mono for code blocks */
-code {
-  font-family: var(--font-geist-mono);
+body {
+  font-family: var(--font-geist-sans);
+  background-color: #222831;
+}
+
+h2 {
+  font-weight: 200;
+  font-size: 1.5rem;
+  color: #EEEEEE;
+  margin: 2.5rem 0;
+}
+
+footer {
+  margin-top: auto;
+}
+
+@media screen and (max-width: 800px){
+  h2 {
+    font-size: 1.3rem;
+  }
+}
+
+span {
+  color:#EEEEEE;
+}
+p {
+  color: #EEEEEE;
+}
+
+@media screen and (max-width: 800px) {
+  span {
+      font-size: 0.8rem;
+    }
+
+    p {
+      font-size: 0.8rem;
+    }
 }

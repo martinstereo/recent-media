@@ -1,0 +1,43 @@
+.container {
+  .textContainer {
+    width: 150px;
+    overflow: hidden;
+
+    .scrollingText {
+      display: block;
+      white-space: nowrap;
+      position: relative;
+      animation: scroll 25s linear infinite;
+      animation-play-state: running;
+
+      &:hover {
+        animation-play-state: running;
+      }
+    }
+  }
+
+  .imageContainer {
+    box-shadow: 1px 1px 4px;
+    border-radius: 8px;
+    height: 150px;
+    width: 150px;
+    position: relative;
+    object-fit: cover;
+  }
+}
+
+.playCount {
+  color: #AAA;;
+}
+
+@keyframes scroll {
+  0% {
+      transform: translateX(0);
+  }
+  40% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-1 * var(--text-width)));
+  }
+}

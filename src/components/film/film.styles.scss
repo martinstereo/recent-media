@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 16px;
 
   .image-container {
     box-shadow: 1px 1px 4px;
@@ -10,6 +9,46 @@
     border-radius: 5px;
     margin: 0;
     height: 225px;
+
+    .image-wrapper {
+      position: relative;
+      width: 150px;
+      height: 225px;
+      overflow: hidden;
+      border-radius: 5px;
+
+      .film-image {
+        transition: filter 0.3s ease;
+      }
+
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 150px;
+        height: 225px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        text-align: center;
+
+        .film-title {
+          padding: 2px;
+        }
+      }
+
+      &:hover .film-image {
+        filter: grayscale(100%);
+      }
+
+      &:hover .overlay {
+        opacity: 1;
+      }
+    }
 
 
     .placeholder-image {
@@ -54,17 +93,23 @@
             width: 0.8em;
             height: 0.8em;
           }
+
+          @media screen and (max-width: 800px) {
+            svg {
+              width: 0.6em;
+              height: 0.6em;
+            }
+          }
         }
       }
 
       .watched-date {
-        color: #555;
+        color: #AAA;
       }
     }
 
     p {
       margin: 4px 0;
-      color: #555;
     }
   }
 }

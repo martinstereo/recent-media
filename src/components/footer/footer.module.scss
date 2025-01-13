@@ -1,0 +1,42 @@
+.footer {
+  background-color: #393E46;
+  color: #EEEEEE;
+  margin-top: 50px;
+  padding: 20px 0;
+  text-align: center;
+  width: 100%;
+  font-family: var(--font-geist-sans);
+
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    a {
+      color: #EEEEEE;
+      display: flex;
+      align-items: center;
+
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+
+  .year {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+
+
+    @media (min-width: 600px) {
+      margin-top: 0;
+    }
+  }
+}
+.text {
+  font-family: var(--font-geist-sans);
+}

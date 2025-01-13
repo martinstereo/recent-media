@@ -1,0 +1,75 @@
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+
+  .dot {
+    width: 24px;
+    height: 24px;
+    margin: 0 5px;
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: pop 1.2s infinite ease-in-out;
+  }
+
+  &.letterboxd {
+    .dot:nth-child(1) {
+      background-color: #ff8000;
+      animation-delay: -0.24s;
+    }
+
+    .dot:nth-child(2) {
+      background-color: #00e054;
+      animation-delay: -0.12s;
+    }
+
+    .dot:nth-child(3) {
+      background-color: #40bcf4;
+      animation-delay: 0s;
+    }
+  }
+
+  &.lastfm {
+    .dot:nth-child(1) {
+      background-color: #D51007;
+      animation-delay: -0.24s;
+    }
+
+    .dot:nth-child(2) {
+      background-color: #D51007;
+      animation-delay: -0.12s;
+    }
+
+    .dot:nth-child(3) {
+      background-color: #D51007;
+      animation-delay: 0s;
+    }
+  }
+
+  &.goodreads {
+    .dot:nth-child(1) {
+      background-color: #526A83;
+      animation-delay: -0.24s;
+    }
+
+    .dot:nth-child(2) {
+      background-color: #F14E4E;
+      animation-delay: -0.12s;
+    }
+
+    .dot:nth-child(3) {
+      background-color: #205E8B;
+      animation-delay: 0s;
+    }
+  }
+}
+
+@keyframes pop {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}

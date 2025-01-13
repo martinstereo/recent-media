@@ -1,41 +1,20 @@
-'use client';
-import { useEffect, useState } from 'react';
-import FilmList from '@/components/film-list/film-list.component';
-import { LetterboxdFilm } from './api/letterboxd/route';
+import MusicList from '@/components/music-list/music-list.component';
+import Navbar from '@/components/navbar/navbar.component';
 import styles from './page.module.css';
+import FilmList from '@/components/film-list/film-list.component';
+import Footer from '@/components/footer/footer.component';
 
 export default function Home() {
-  const [letterboxdData, setLetterboxdData] = useState<{
-    films: LetterboxdFilm[];
-  } | null>(null);
-
-  useEffect(() => {
-    async function fetchLetterboxdData() {
-      const username = 'martinstereo';
-      const response = await fetch(`/api/letterboxd?username=${username}`);
-      const result = await response.json();
-      setLetterboxdData({
-        films: result.films.slice(0, 8),
-      });
-    }
-
-    fetchLetterboxdData();
-  }, []);
-
   return (
     <div className={styles.page}>
+      <header className={styles.header}>
+        <Navbar />
+      </header>
       <main className={styles.main}>
-        <div className={styles.filmsContainer}>
-          <h2 className={styles.mediaTitle}>
-            martinstereo&apos;s recently watched films!
-          </h2>
-          {letterboxdData ? (
-            <FilmList films={letterboxdData.films} />
-          ) : (
-            <p>Loading Films...</p>
-          )}
-        </div>
+        <FilmList />
+        <MusicList />
       </main>
+      <Footer />
     </div>
   );
 }
