@@ -42,7 +42,7 @@ function MusicList() {
   return (
     <div className='music-container'>
       <div className='dropdown-container'>
-        <h2>my top </h2>
+        <h2>top</h2>
         <select
           className='dropdown-menu'
           value={category}
@@ -62,16 +62,17 @@ function MusicList() {
           <option value='12month'>12 months</option>
         </select>
       </div>
-
-      <div className='music-list'>
-        {isLoading ? (
-          <div className='spinner-container'>
-            <Spinner type='lastfm' />
-          </div>
-        ) : (
-          lastFmData.map((item, index) => <MusicItem key={index} item={item} />)
-        )}
-      </div>
+      {isLoading ? (
+        <div className='spinner-container'>
+          <Spinner type='lastfm' />
+        </div>
+      ) : (
+        <div className='music-list'>
+          {lastFmData.map((item, index) => (
+            <MusicItem key={index} item={item} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

@@ -2,7 +2,6 @@
   .textContainer {
     width: 150px;
     overflow: hidden;
-
     .scrollingText {
       display: block;
       white-space: nowrap;
@@ -18,7 +17,7 @@
 
   .imageContainer {
     box-shadow: 1px 1px 4px;
-    border-radius: 8px;
+    border-radius: 6px;
     height: 150px;
     width: 150px;
     position: relative;

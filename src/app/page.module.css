@@ -2,7 +2,19 @@
   font-family: var(--font-geist-sans);
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  gap: 2rem;
+}
+
+
+.main {
+  max-width: 940px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  @media screen and (max-width: 800px) {
+      margin: 2px;
+    }
 }
 
 .main ol {
@@ -13,8 +25,4 @@
   line-height: 24px;
   letter-spacing: -0.01em;
   list-style-position: inside;
-}
-
-.main li:not(:last-of-type) {
-  margin-bottom: 8px;
 }

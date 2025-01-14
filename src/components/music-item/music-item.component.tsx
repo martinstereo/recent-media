@@ -40,7 +40,7 @@ function MusicItem({ item }: MusicItemProps) {
   const isArtist = 'artist' in item && !item.name;
   const itemName = isArtist ? item.artist.name : item.name;
   const artistName = !isArtist && 'artist' in item ? item.artist.name : null;
-  const imageUrl = image[2]?.['#text']?.trim();
+  const imageUrl = image[3]?.['#text']?.trim();
 
   const nameRef = useRef<HTMLParagraphElement>(null);
   const artistRef = useRef<HTMLParagraphElement>(null);

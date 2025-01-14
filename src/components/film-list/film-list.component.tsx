@@ -27,7 +27,7 @@ function FilmList() {
         });
         const result = await response.json();
         setLetterboxdData({
-          films: result.films.slice(0, 8),
+          films: result.films.slice(0, 10),
         });
         setIsLoading(false);
       } catch (error) {

@@ -5,8 +5,6 @@ import LetterboxdIcon from '../svg/letterboxd-logo';
 import LastfmIcon from '../svg/lastfm-logo';
 import styles from './footer.module.scss';
 
-// Custom SVG icons for Letterboxd and Last.fm
-
 function Footer() {
   return (
     <footer className={styles.footer}>
@@ -35,7 +33,7 @@ function Footer() {
               color='#EEEEEE'
               className={styles.text}
               sx={{ fontFamily: 'var(--font-geist-sans)' }}>
-              Developed by Martin Steiro &copy; {new Date().getFullYear()}
+              Created by Martin Steiro
             </Typography>
           </Box>
         </Stack>

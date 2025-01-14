@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "martinstereo's Recent Media",
+  title: 'martin&apos;s Recent Media',
   description: 'Recent Media of user martinstereo on letterboxd, lastfm and goodreads.',
 };
 
