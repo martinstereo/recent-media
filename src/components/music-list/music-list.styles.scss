@@ -1,8 +1,6 @@
 .music-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   background-color: #393E46;
   border-radius: 10px;
   box-shadow: 1px 1px 4px;
@@ -14,26 +12,24 @@
   flex-wrap: wrap;
   gap: 2em;
   justify-content: center;
-
 }
 
 .spinner-container {
   height: 279px;
   width: 100%;
   display: flex;
-  align-items: center;
   margin: auto;
-  justify-content: center;
 }
 .dropdown-container {
-  max-height: 3rem;
+  gap: 1rem;
+  max-height: 4rem;
   white-space: nowrap;
-  width: 100%;
+  width: fit-content;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   text-align: left;
-  padding-left: 4em;
+  padding-left: 2rem;
 }
 .dropdown-menu {
   font-size: 1.5em; // Adjust the font size to match the h2 element

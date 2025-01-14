@@ -1,7 +1,6 @@
 .films-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   background-color: #393E46;
   border-radius: 10px;
   box-shadow: 1px 1px 4px;
@@ -10,12 +9,12 @@
 .films-header {
   max-height: 4rem;
   white-space: nowrap;
-  width: 100%;
+  width:fit-content;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   text-align: left;
-  padding-left: 4em;
+  padding-left: 2rem;
 }
 
 .film-list-container {
