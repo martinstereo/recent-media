@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import './globals.css';
+import './globals.scss';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'martin&apos;s Recent Media',
-  description: 'Recent Media of user martinstereo on letterboxd, lastfm and goodreads.',
+  title: "martin's recent media",
+  description:
+    "Martin's recent films, music and books with data collected from letterboxd, lastfm and goodreads",
 };
 
 export default function RootLayout({

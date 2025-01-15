@@ -1,9 +1,9 @@
 .films-container {
   display: flex;
   flex-direction: column;
-  background-color: #393E46;
+  background-color: #222831;
   border-radius: 10px;
-  box-shadow: 1px 1px 4px;
+  padding-bottom: 1.5rem;
 }
 
 .films-header {
@@ -23,7 +23,6 @@
   flex-wrap: wrap;
   gap: 2em;
   justify-content: center;
-  padding-bottom: 4px;
   overflow-y: auto;
 }
 
@@ -48,6 +47,7 @@
     overflow-x: auto;
     max-width: 100%;
     gap: 1.5em;
+    padding-bottom: 1rem;
     justify-content: flex-start;
   }
 }
