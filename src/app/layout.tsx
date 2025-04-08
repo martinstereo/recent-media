@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "martin's recent media",
   description:
-    "Martin's recent films, music and books with data collected from letterboxd, lastfm and goodreads",
+    "Martin's recent films, music and books with data collected from letterboxd, lastfm and hardcover",
 };
 
 export default function RootLayout({

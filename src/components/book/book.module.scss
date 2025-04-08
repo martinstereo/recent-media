@@ -1,0 +1,92 @@
+.bookCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 18%; /* Allows 5 items per row with space-between */
+  margin-bottom: 1.5rem; /* Vertical spacing between rows */
+  position: relative; /* Added to create stacking context */
+  padding-top: 8px; /* Add padding at top to allow space for hover effect */
+}
+
+.bookCover {
+  position: relative;
+  width: 150px;
+  height: 225px;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* Updated for cleaner look */
+  transition: all 0.3s ease;
+  z-index: 1;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+  }
+}
+
+.coverImage {
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.bookInfo {
+  width: 100%;
+  text-align: center;
+  height: 100px; // Fixed height for text content area
+  display: flex;
+  flex-direction: column;
+}
+
+.bookTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0.3rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #EEEEEE;
+}
+
+.bookAuthor {
+  font-size: 0.85rem;
+  margin: 0.1rem 0;
+  color: #EEEEEE; // Updated from #aaa to match global style
+}
+
+.bookDate {
+  font-size: 0.8rem;
+  margin: 0.1rem 0;
+  color: #EEEEEE; // Updated from #777 to match global style
+}
+
+.ratingContainer {
+  margin-top: 0.3rem;
+}
+
+.filledStar {
+  color: gold;
+  font-size: 0.9rem;
+}
+
+.emptyStar {
+  color: #EEEEEE; // Updated from #555 to match global style
+  font-size: 0.9rem;
+}
+
+@media (max-width: 800px) {
+  .bookCard {
+    margin: 0 0.25rem;
+    min-width: 110px; // Reduced for better mobile fit
+  }
+
+  .bookCover {
+    width: 100px; // Reduced for mobile
+    height: 150px; // Reduced for mobile
+  }
+
+  .bookTitle, .bookAuthor, .bookDate {
+    max-width: 100px;
+    font-size: smaller;
+  }
+}

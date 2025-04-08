@@ -4,6 +4,7 @@ import FilmList from '@/components/film-list/film-list.component';
 import Footer from '@/components/footer/footer.component';
 
 import styles from './page.module.scss';
+import BookList from '@/components/book-list/book-list.component';
 
 export default function Home() {
   return (
@@ -12,8 +13,15 @@ export default function Home() {
         <Navbar />
       </header>
       <main className={styles.main}>
-        <FilmList />
-        <MusicList />
+        <section id='films-section' className={styles.section}>
+          <FilmList />
+        </section>
+        <section id='music-section' className={styles.section}>
+          <MusicList />
+        </section>
+        <section id='books-section' className={styles.section}>
+          <BookList />
+        </section>
       </main>
       <Footer />
     </div>

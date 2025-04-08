@@ -3,6 +3,10 @@
   --font-geist-mono: 'Geist Mono', monospace;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   margin: 0;

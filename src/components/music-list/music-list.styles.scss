@@ -1,6 +1,7 @@
 .music-container {
   display: flex;
   flex-direction: column;
+  background-color: #222831;
   border-radius: 10px;
 }
 
@@ -8,16 +9,26 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 2em;
-  justify-content: center;
+  justify-content: space-between; // This aligns 1st and last items to edges
+  padding: 0 2rem;
+  overflow-y: auto;
+}
+
+/* Add this to ensure each album takes exactly 1/5 of the space */
+.music-list::after {
+  content: "";
+  flex: 0 0 18%; /* Same width as music items */
 }
 
 .spinner-container {
-  height: 279px;
+  height: 250px;
   width: 100%;
   display: flex;
+  align-items: center;
   margin: auto;
+  justify-content: center;
 }
+
 .dropdown-container {
   gap: 1rem;
   max-height: 4rem;
@@ -29,16 +40,16 @@
   text-align: left;
   padding-left: 2rem;
 }
+
 .dropdown-menu {
-  font-size: 1.5em; // Adjust the font size to match the h2 element
+  font-size: 1.5em;
   font-weight: 100;
-  color: #EEEEEE; // Adjust the color to match the h2 element
-  background-color: #222831; // Adjust the background color if needed
+  color: #EEEEEE;
+  background-color: #222831;
   border-radius: 4px;
 }
 
 @media screen and (max-width: 800px) {
-
   .music-container {
     padding: 0 0.5em;
   }
@@ -52,11 +63,19 @@
   .dropdown-menu {
     font-size: 1rem;
   }
+
   .music-list {
     flex-wrap: nowrap;
     overflow-x: auto;
     max-width: 100%;
-    gap: 1.5rem;
+    gap: 1.2em;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
     justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }

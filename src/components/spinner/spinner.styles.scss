@@ -63,6 +63,22 @@
       animation-delay: 0s;
     }
   }
+
+  &.hardcover {
+    .dot {
+      background-color: #f47d20; // Hardcover's orange color
+
+      &:nth-child(2) {
+        background-color: #ff9141; // Lighter orange for contrast
+        animation-delay: 0.2s;
+      }
+
+      &:nth-child(3) {
+        background-color: #1e3a8a; // Hardcover's blue color
+        animation-delay: 0.4s;
+      }
+    }
+  }
 }
 
 @keyframes pop {

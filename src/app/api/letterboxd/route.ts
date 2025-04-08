@@ -48,7 +48,10 @@ export async function GET(request: Request) {
 
     return NextResponse.json({ films }, { status: 200 });
   } catch {
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Error fetching Letterboxd data' },
+      { status: 500 }
+    );
   }
 }
 

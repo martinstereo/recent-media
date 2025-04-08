@@ -15,6 +15,7 @@
     "@types/node-fetch": "^2.6.12",
     "cheerio": "^1.0.0",
     "dotenv": "^16.4.7",
+    "fast-xml-parser": "^4.5.1",
     "next": "15.1.4",
     "node-fetch": "^3.3.2",
     "react": "^19.0.0",

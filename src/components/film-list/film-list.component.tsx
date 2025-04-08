@@ -42,7 +42,7 @@ function FilmList() {
   return (
     <div className='films-container'>
       <div className='films-header'>
-        <h2>recently watched films</h2>
+        <h2>Recent Films</h2>
       </div>
       {!isLoading && letterboxdData ? (
         <div className='film-list-container'>

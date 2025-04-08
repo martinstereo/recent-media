@@ -2,14 +2,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  width: 18%; /* Makes it match the book card width for 5 items per row */
+  margin-bottom: 1.5rem;
+  padding-top: 8px; /* Add padding at top to allow space for hover effect */
 
   .image-container {
-    box-shadow: 1px 1px 4px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* Updated for consistent look */
     display: block;
     border-radius: 5px;
     margin: 0;
     height: 225px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+    }
 
     .image-wrapper {
       position: relative;
@@ -51,7 +59,6 @@
       }
     }
 
-
     .placeholder-image {
       width: 150px;
       height: 225px;
@@ -65,19 +72,21 @@
 
   .film-details {
     margin-top: 4px;
-      width: 100%;
-      text-align: center;
+    width: 100%;
+    text-align: center;
 
     .film-meta {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column; /* Changed from row to column */
+      align-items: center; /* Center align everything */
+      justify-content: center;
       font-size: 1em;
+      gap: 4px; /* Add a small gap between rating and date */
 
       .rating-container {
         display: flex;
         align-items: center;
-        gap: 0;
+        gap: 2px;
         color: #555;
         font-size: 1em;
         .rating {
@@ -86,26 +95,20 @@
         }
 
         .rewatch-icon {
-
           display: flex;
           align-items: center;
+          margin-left: 4px; /* Add a little space between rating and rewatch icon */
 
           svg {
             width: 0.75em;
             height: 0.75em;
-          }
-
-          @media screen and (max-width: 800px) {
-            svg {
-              width: 0.7em;
-              height: 0.7em;
-            }
           }
         }
       }
 
       .watched-date {
         color: #AAA;
+        margin-top: 2px; /* Add a bit of space above the date */
       }
     }
 

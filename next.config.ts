@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'lastfm.freetls.fastly.net',
       },
+      { protocol: 'https', hostname: 'i.gr-assets.com' },
+      { protocol: 'https', hostname: 'images.gr-assets.com' },
+      { protocol: 'https', hostname: 'assets.hardcover.app' },
     ],
   },
 };

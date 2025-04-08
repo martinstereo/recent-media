@@ -1,7 +1,7 @@
 import './spinner.styles.scss';
 
 interface SpinnerProps {
-  type: 'letterboxd' | 'lastfm' | 'goodreads';
+  type: 'letterboxd' | 'lastfm' | 'hardcover';
 }
 
 const Spinner = ({ type }: SpinnerProps) => {

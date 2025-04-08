@@ -17,7 +17,6 @@ function MusicList() {
       try {
         const response = await fetch(`/api/lastfm?category=${category}&period=${period}`);
         const data = await response.json();
-        console.log('data: ', data);
         let items: LastFmData[] = [];
 
         if (category === 'tracks' && data.toptracks) {
@@ -27,7 +26,6 @@ function MusicList() {
         } else if (category === 'artists' && data.topartists) {
           items = data.topartists.artist;
         }
-
         setLastFmData(items);
       } catch (err) {
         console.error('Error fetching data:', err);
@@ -42,7 +40,7 @@ function MusicList() {
   return (
     <div className='music-container'>
       <div className='dropdown-container'>
-        <h2>top</h2>
+        <h2>Top</h2>
         <select
           className='dropdown-menu'
           value={category}

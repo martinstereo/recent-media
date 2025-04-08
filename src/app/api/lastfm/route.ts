@@ -1,3 +1,5 @@
+import { NextResponse } from 'next/server';
+
 const LASTFM_USERNAME = process.env.LASTFM_USERNAME;
 const LASTFM_API_KEY = process.env.LASTFM_API_KEY;
 
@@ -25,8 +27,8 @@ export async function GET(request: Request) {
       `https://ws.audioscrobbler.com/2.0/?method=${endpointMap[category]}&user=${LASTFM_USERNAME}&api_key=${LASTFM_API_KEY}&format=json&period=${period}&limit=10`
     );
     const json = await res.json();
-    return new Response(JSON.stringify(json), { status: 200 });
+    return NextResponse.json(json, { status: 200 });
   } catch {
-    return new Response('Error fetching data', { status: 500 });
+    return NextResponse.json({ error: 'Error fetching LastFM data' }, { status: 500 });
   }
 }

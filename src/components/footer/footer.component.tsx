@@ -3,6 +3,7 @@ import { Container, Link, Typography, Box, Stack } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LetterboxdIcon from '../svg/letterboxd-logo';
 import LastfmIcon from '../svg/lastfm-logo';
+import HardcoverIcon from '../svg/hardcover-logo';
 import styles from './footer.module.scss';
 
 function Footer() {
@@ -23,8 +24,17 @@ function Footer() {
               rel='noopener noreferrer'>
               <LetterboxdIcon />
             </Link>
-            <Link href='https://www.last.fm' target='_blank' rel='noopener noreferrer'>
+            <Link
+              href='https://www.last.fm/user/martinstereo'
+              target='_blank'
+              rel='noopener noreferrer'>
               <LastfmIcon />
+            </Link>
+            <Link
+              href='https://hardcover.app/@martinstereo'
+              target='_blank'
+              rel='noopener noreferrer'>
+              <HardcoverIcon />
             </Link>
           </Box>
           <Box className={styles.developedBy}>

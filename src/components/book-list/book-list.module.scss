@@ -1,11 +1,11 @@
-.films-container {
+.booksContainer {
   display: flex;
   flex-direction: column;
   background-color: #222831;
   border-radius: 10px;
 }
 
-.films-header {
+.booksHeader {
   max-height: 4rem;
   white-space: nowrap;
   width: fit-content;
@@ -16,7 +16,7 @@
   padding-left: 2rem;
 }
 
-.film-list-container {
+.bookListContainer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -25,13 +25,13 @@
   overflow-y: auto;
 }
 
-/* Add this to ensure each film takes exactly 1/5 of the space */
-.film-list-container::after {
+/* Add this to ensure each book takes exactly 1/5 of the space */
+.bookListContainer::after {
   content: "";
-  flex: 0 0 18%; /* Same width as film cards */
+  flex: 0 0 18%; /* Same width as .bookCard */
 }
 
-.spinner-container {
+.spinnerContainer {
   height: 250px;
   width: 100%;
   display: flex;
@@ -41,13 +41,13 @@
 }
 
 @media (max-width: 800px) {
-  .films-container {
+  .booksContainer {
     padding: 0 0.5em;
   }
-  .films-header {
+  .booksHeader {
     padding-left: 0;
   }
-  .film-list-container {
+  .bookListContainer {
     flex-wrap: nowrap;
     overflow-x: auto;
     max-width: 100%;

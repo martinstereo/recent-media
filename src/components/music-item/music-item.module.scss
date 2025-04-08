@@ -1,13 +1,28 @@
 .container {
+  width: 18%; /* Makes it match the book card width for 5 items per row */
+  padding-top: 8px; /* Add padding at top to allow space for hover effect */
+  margin-bottom: 1.5rem; /* Added to match book and film spacing */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the content horizontally */
+
   .textContainer {
     width: 150px;
     overflow: hidden;
+    height: auto; /* Changed from fixed height to auto */
+    max-height: 70px; /* Added max-height instead of fixed height */
+    text-align: center; /* Center the text */
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
     .scrollingText {
       display: block;
       white-space: nowrap;
       position: relative;
       animation: scroll 25s linear infinite;
       animation-play-state: running;
+      margin: 0; /* Reset margin to prevent spacing issues */
 
       &:hover {
         animation-play-state: running;
@@ -16,22 +31,33 @@
   }
 
   .imageContainer {
-    box-shadow: 1px 1px 4px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* Updated for consistent look */
     border-radius: 6px;
     height: 150px;
     width: 150px;
     position: relative;
     object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 8px;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+    }
   }
 }
 
 .playCount {
-  color: #AAA;;
+  color: #AAA;
+  text-align: center;
+  font-size: 0.85rem; /* Smaller text for play count */
+  margin-top: 2px;
+  margin-bottom: 0;
 }
 
 @keyframes scroll {
   0% {
-      transform: translateX(0);
+    transform: translateX(0);
   }
   40% {
     transform: translateX(0);
