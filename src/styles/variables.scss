@@ -1,28 +1,30 @@
-:root {
-  // Colors
-  --background-dark: #222831;
-  --background-lighter: #393E46;
-  --text-primary: #EEEEEE;
-  --text-secondary: #AAA;
-  --accent-color: #FFD369;
-  --overlay-gradient: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+:global {
+  :root {
+    // Colors
+    --background-dark: #222831;
+    --background-lighter: #393E46;
+    --text-primary: #EEEEEE;
+    --text-secondary: #AAA;
+    --accent-color: #FFD369;
+    --overlay-gradient: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
 
-  // Spacing
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
+    // Spacing
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
 
-  // Component sizes
-  --card-width: 18%;
-  --card-width-mobile: 110px;
-  --border-radius: 10px;
-  --card-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-  --card-shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.3);
+    // Component sizes
+    --card-width: 18%;
+    --card-width-mobile: 110px;
+    --border-radius: 10px;
+    --card-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    --card-shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.3);
 
-  // Animation
-  --transition-speed: 0.3s;
+    // Animation
+    --transition-speed: 0.3s;
+  }
 }
 
 // Focus styles for accessibility
