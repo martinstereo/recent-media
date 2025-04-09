@@ -1,31 +1,50 @@
 import { NextResponse } from 'next/server';
 
-// Update types to match actual API structure
+// Update types to match the actual API response structure
+export type HardcoverImage = {
+  id: number;
+  url: string;
+  color: string;
+  width: number;
+  height: number;
+  color_name: string;
+};
+
+export type HardcoverAuthor = {
+  id: number;
+  slug: string;
+  name: string;
+  image?: HardcoverImage;
+};
+
+export type HardcoverContributor = {
+  author: HardcoverAuthor;
+  contribution: string | null;
+};
+
 export type HardcoverBook = {
   title: string;
-  id?: string;
-  image?: {
-    url: string;
-  };
-  release_year?: number;
-  contributions?: {
-    author: {
-      name: string;
-    };
-  }[];
+  id?: string | number;
+  cached_image?: HardcoverImage;
+  cached_contributors?: HardcoverContributor[];
+};
+
+export type HardcoverBookRead = {
+  started_at?: string;
+  progress?: number;
+  finished_at?: string;
 };
 
 export type HardcoverUserBook = {
-  rating?: number;
   book: HardcoverBook;
-  date_added?: string; // This replaces started_at/finished_at
-  status_id: number;
+  user_book_reads: HardcoverBookRead[];
+  rating?: number;
 };
 
 export type ParsedBook = {
   readingStatus: string;
   bookTitle: string;
-  guid: string;
+  guid?: string;
   pubDate: string;
   imageUrl: string;
   author: string;
@@ -41,50 +60,23 @@ query Test {
 }
 `;
 
-// GraphQL query for currently reading books - with sorting
-const currentlyReadingQuery = `
-query CurrentlyReading {
+// GraphQL query remains the same
+const booksQuery = `
+query MyQuery {
   me {
-    user_books(where: {status_id: {_eq: 2}}, order_by: {date_added: desc}) {
-      date_added
-      rating
+    id
+    user_books {
       book {
-        id
         title
-        image {
-          url
-        }
-        release_year
-        contributions {
-          author {
-            name
-          }
-        }
+        id
+        cached_image
+        cached_contributors
       }
-    }
-  }
-}
-`;
-
-// GraphQL query for recently read books - with sorting
-const recentlyReadQuery = `
-query RecentlyRead {
-  me {
-    user_books(where: {status_id: {_eq: 3}}, limit: 15, order_by: {date_added: desc}) {
-      date_added
       rating
-      book {
-        id
-        title
-        image {
-          url
-        }
-        release_year
-        contributions {
-          author {
-            name
-          }
-        }
+      user_book_reads {
+        started_at
+        progress
+        finished_at
       }
     }
   }
@@ -92,6 +84,7 @@ query RecentlyRead {
 `;
 
 async function fetchFromHardcover(query: string) {
+  // This function remains unchanged
   const HARDCOVER_API_URL = 'https://api.hardcover.app/v1/graphql';
   const HARDCOVER_AUTH_KEY = process.env.HARDCOVER_AUTH_KEY;
 
@@ -103,8 +96,6 @@ async function fetchFromHardcover(query: string) {
     query: query,
     variables: {},
   };
-
-  console.log('Sending GraphQL request:', JSON.stringify(graphqlRequest));
 
   const response = await fetch(HARDCOVER_API_URL, {
     method: 'POST',
@@ -123,43 +114,101 @@ async function fetchFromHardcover(query: string) {
   }
 
   const data = await response.json();
-  console.log('API response structure:', JSON.stringify(data, null, 2));
   return data;
 }
 
-function parseBookData(
-  currentlyReading: HardcoverUserBook[],
-  recentlyRead: HardcoverUserBook[]
-): ParsedBook[] {
-  const currentlyReadingBooks = currentlyReading.map((userBook) => ({
-    readingStatus: 'currently reading',
-    bookTitle: userBook.book.title,
-    guid: userBook.book.id || '',
-    pubDate: userBook.date_added || '',
-    imageUrl: userBook.book.image?.url || '',
-    author: userBook.book.contributions?.[0]?.author?.name || 'Unknown',
-    rating: userBook.rating,
-  }));
+function parseBookData(userBooks: HardcoverUserBook[]): ParsedBook[] {
+  if (!userBooks || !Array.isArray(userBooks)) {
+    return [];
+  }
 
-  const recentlyReadBooks = recentlyRead.map((userBook) => ({
-    readingStatus: 'recently read',
-    bookTitle: userBook.book.title,
-    guid: userBook.book.id || '',
-    pubDate: userBook.date_added || '',
-    imageUrl: userBook.book.image?.url || '',
-    author: userBook.book.contributions?.[0]?.author?.name || 'Unknown',
-    rating: userBook.rating,
-  }));
+  const parsedBooks: ParsedBook[] = [];
 
-  // Combine books and sort by date (most recent first)
-  const allBooks = [...currentlyReadingBooks, ...recentlyReadBooks];
-  return allBooks.sort((a, b) => {
+  for (const userBook of userBooks) {
+    // Skip if no book or reads data
+    if (
+      !userBook.book ||
+      !userBook.user_book_reads ||
+      userBook.user_book_reads.length === 0
+    ) {
+      continue;
+    }
+
+    // Get the most recent read entry
+    const latestRead = userBook.user_book_reads.reduce((latest, current) => {
+      const latestDate = latest.finished_at || latest.started_at;
+      const currentDate = current.finished_at || current.started_at;
+
+      if (!latestDate) return current;
+      if (!currentDate) return latest;
+
+      return new Date(currentDate) > new Date(latestDate) ? current : latest;
+    }, userBook.user_book_reads[0]);
+
+    // Extract image URL from the cached_image object
+    let imageUrl = '';
+    if (userBook.book.cached_image && typeof userBook.book.cached_image === 'object') {
+      imageUrl = userBook.book.cached_image.url || '';
+    }
+
+    // Extract author from cached_contributors array
+    let author = 'Unknown';
+    try {
+      if (
+        userBook.book.cached_contributors &&
+        Array.isArray(userBook.book.cached_contributors)
+      ) {
+        // Get the first contributor that's the main author (no contribution or null contribution)
+        const mainAuthor = userBook.book.cached_contributors.find(
+          (c) => c.author && (!c.contribution || c.contribution === null)
+        );
+
+        if (mainAuthor) {
+          author = mainAuthor.author.name;
+        } else if (userBook.book.cached_contributors.length > 0) {
+          // If no main author found, just use the first one
+          author = userBook.book.cached_contributors[0].author.name;
+        }
+      }
+    } catch (error) {
+      console.warn('Failed to extract author:', error);
+    }
+
+    // Determine reading status and relevant date
+    let readingStatus = 'unknown';
+    let pubDate = '';
+
+    if (latestRead.finished_at) {
+      readingStatus = 'recently read';
+      pubDate = latestRead.finished_at;
+    } else if (latestRead.started_at) {
+      readingStatus = 'currently reading';
+      pubDate = latestRead.started_at;
+    }
+
+    // Only add books with a clear reading status
+    if (readingStatus !== 'unknown') {
+      parsedBooks.push({
+        readingStatus,
+        bookTitle: userBook.book.title,
+        guid: userBook.book.id?.toString(),
+        pubDate,
+        imageUrl,
+        author,
+        rating: userBook.rating,
+      });
+    }
+  }
+
+  // Sort by date (most recent first)
+  return parsedBooks.sort((a, b) => {
     const dateA = new Date(a.pubDate || 0).getTime();
     const dateB = new Date(b.pubDate || 0).getTime();
-    return dateB - dateA; // Sort descending (newest first)
+    return dateB - dateA;
   });
 }
 
+// GET function remains unchanged
 export async function GET() {
   try {
     console.log('Testing authentication...');
@@ -175,35 +224,27 @@ export async function GET() {
 
     console.log('Authentication successful for user:', testResponse.data.me[0].username);
 
-    // Fetch currently reading books
-    const currentlyReadingData = await fetchFromHardcover(currentlyReadingQuery);
+    // Fetch books with the new query
+    const booksData = await fetchFromHardcover(booksQuery);
 
-    let currentlyReadingBooks = [];
-    if (currentlyReadingData.data?.me?.[0]?.user_books) {
-      currentlyReadingBooks = currentlyReadingData.data.me[0].user_books;
-      console.log(`Found ${currentlyReadingBooks.length} currently reading books`);
-    } else {
-      console.warn('Unexpected response structure for currently reading books');
+    if (!booksData.data?.me?.[0]?.user_books) {
+      console.error('Unexpected response structure:', booksData);
+      return NextResponse.json(
+        { error: 'Unexpected response structure from Hardcover API' },
+        { status: 500 }
+      );
     }
 
-    // Fetch recently read books
-    const recentlyReadData = await fetchFromHardcover(recentlyReadQuery);
+    const userBooks = booksData.data.me[0].user_books;
+    console.log(`Found ${userBooks.length} books total`);
 
-    let recentlyReadBooks = [];
-    if (recentlyReadData.data?.me?.[0]?.user_books) {
-      recentlyReadBooks = recentlyReadData.data.me[0].user_books;
-      console.log(`Found ${recentlyReadBooks.length} recently read books`);
-    } else {
-      console.warn('Unexpected response structure for recently read books');
-    }
-
-    // Parse and combine the results
-    const result = parseBookData(currentlyReadingBooks, recentlyReadBooks);
+    // Parse the results
+    const result = parseBookData(userBooks);
+    console.log(`Parsed ${result.length} books with reading status`);
 
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
     console.error('Error fetching Hardcover data:', error);
-    // Fix the type error by checking if error is an Error object
     const errorMessage =
       error instanceof Error ? error.message : 'An unknown error occurred';
 

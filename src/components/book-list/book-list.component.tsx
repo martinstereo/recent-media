@@ -16,7 +16,6 @@ function BookList() {
       setIsLoading(true);
       try {
         const response = await fetch('/api/hardcover', {
-          // Add leading slash
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -29,7 +28,6 @@ function BookList() {
         }
 
         const result = await response.json();
-        console.log('Books from API:', result);
 
         if (Array.isArray(result)) {
           setBookData(result);
@@ -47,6 +45,14 @@ function BookList() {
     fetchBooksFromHardcover();
   }, []);
 
+  // Filter books by reading status
+  const currentlyReadingBooks = bookData.filter(
+    (book) => book.readingStatus === 'currently reading'
+  );
+  const recentlyReadBooks = bookData.filter(
+    (book) => book.readingStatus === 'recently read'
+  );
+
   return (
     <div className={styles.booksContainer}>
       <div className={styles.booksHeader}>
@@ -58,9 +64,27 @@ function BookList() {
         </div>
       ) : (
         <div className={styles.bookListContainer}>
-          {bookData.map((book, index) => (
-            <Book key={index} book={book} />
-          ))}
+          <div className={styles.bookSection}>
+            <h3 className={styles.sectionTitle}>Currently Reading</h3>
+            {currentlyReadingBooks.length > 0 ? (
+              currentlyReadingBooks.map((book, index) => (
+                <Book key={`reading-${index}`} book={book} />
+              ))
+            ) : (
+              <p className={styles.emptyMessage}>No books currently being read</p>
+            )}
+          </div>
+
+          <div className={styles.bookSection}>
+            <h3 className={styles.sectionTitle}>Recently Read</h3>
+            {recentlyReadBooks.length > 0 ? (
+              recentlyReadBooks.map((book, index) => (
+                <Book key={`read-${index}`} book={book} />
+              ))
+            ) : (
+              <p className={styles.emptyMessage}>No recently read books</p>
+            )}
+          </div>
         </div>
       )}
     </div>

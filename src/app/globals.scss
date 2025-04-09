@@ -1,6 +1,24 @@
 :root {
   --font-geist-sans: 'Geist', sans-serif;
   --font-geist-mono: 'Geist Mono', monospace;
+
+
+  // Spacing
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+
+  // Component sizes
+  --card-width: 18%;
+  --card-width-mobile: 110px;
+  --border-radius: 10px;
+  --card-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  --card-shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.3);
+
+  // Animation
+  --transition-speed: 0.3s;
 }
 
 * {
@@ -26,13 +44,13 @@ body {
 
 body {
   font-family: var(--font-geist-sans);
-  background-color: #222831;
+  background-color: var(--background-dark);
 }
 
 h2 {
   font-weight: 300;
   font-size: 1.5rem;
-  color: #EEEEEE;
+  color: var(--text-primary);
 }
 
 footer {
@@ -46,10 +64,10 @@ footer {
 }
 
 span {
-  color:#EEEEEE;
+  color: var(--text-primary);
 }
 p {
-  color: #EEEEEE;
+  color: var(--text-primary);
 }
 
 @media screen and (max-width: 800px) {
@@ -60,4 +78,10 @@ p {
     p {
       font-size: 0.8rem;
     }
+}
+
+// Focus styles for accessibility
+@mixin focus-outline {
+  outline: 3px solid var(--accent-color);
+  outline-offset: 2px;
 }

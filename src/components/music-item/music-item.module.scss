@@ -1,58 +1,86 @@
 .container {
-  width: 18%; /* Makes it match the book card width for 5 items per row */
-  padding-top: 8px; /* Add padding at top to allow space for hover effect */
-  margin-bottom: 1.5rem; /* Added to match book and film spacing */
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center; /* Center the content horizontally */
+  background-color: #2D333B;
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-  .textContainer {
-    width: 150px;
-    overflow: hidden;
-    height: auto; /* Changed from fixed height to auto */
-    max-height: 70px; /* Added max-height instead of fixed height */
-    text-align: center; /* Center the text */
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+  &:last-child {
+    margin-bottom: 0;
+  }
 
-    .scrollingText {
-      display: block;
-      white-space: nowrap;
-      position: relative;
-      animation: scroll 25s linear infinite;
-      animation-play-state: running;
-      margin: 0; /* Reset margin to prevent spacing issues */
-
-      &:hover {
-        animation-play-state: running;
-      }
-    }
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   }
 
   .imageContainer {
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* Updated for consistent look */
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
     border-radius: 6px;
-    height: 150px;
-    width: 150px;
-    position: relative;
-    object-fit: cover;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 80px;
+    width: 80px;
+    margin-right: 15px;
+    flex-shrink: 0;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.textContainer {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .itemName {
+    font-weight: 600;
+    font-size: 1.1rem;
     margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #EEEEEE;
+  }
+
+  .artistName {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #EEEEEE;
+  }
+
+  .scrollingText {
+    display: block;
+    white-space: nowrap;
+    position: relative;
+    animation: scroll 25s linear infinite;
+    animation-play-state: paused;
+    margin: 0;
 
     &:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+      animation-play-state: running;
     }
   }
 }
 
 .playCount {
-  color: #AAA;
-  text-align: center;
-  font-size: 0.85rem; /* Smaller text for play count */
-  margin-top: 2px;
-  margin-bottom: 0;
+  display: inline-block;
+  font-size: 0.95rem;
+  color: #d4d4d4;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 3px 8px;
+  border-radius: 4px;
+  max-width: fit-content;
+  margin-top: auto;
 }
 
 @keyframes scroll {
@@ -64,5 +92,32 @@
   }
   100% {
     transform: translateX(calc(-1 * var(--text-width)));
+  }
+}
+
+@media (max-width: 800px) {
+  .container {
+    padding: 12px;
+
+    .imageContainer {
+      height: 60px;
+      width: 60px;
+      margin-right: 12px;
+    }
+  }
+
+  .textContainer {
+    .itemName {
+      font-size: 0.95rem;
+    }
+
+    .artistName {
+      font-size: 0.85rem;
+    }
+  }
+
+  .playCount {
+    font-size: 0.85rem;
+    padding: 2px 6px;
   }
 }

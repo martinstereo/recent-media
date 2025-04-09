@@ -1,68 +1,77 @@
 import Image from 'next/image';
-import { convertRatingToStars } from '@/utils/convertRatingToStars';
-import { LetterboxdFilm } from '@/app/api/letterboxd/route';
-
 import AutorenewIcon from '@mui/icons-material/Autorenew';
+import styles from './film.module.scss';
+import { convertRatingToStars } from '@/utils/convertRatingToStars';
 
-import './film.styles.scss';
-
-interface FilmProps {
-  film: LetterboxdFilm;
-}
+type FilmProps = {
+  film: {
+    filmTitle: string;
+    filmYear?: string;
+    watchedDate: string;
+    memberRating?: string; // Changed from rating to memberRating to match Letterboxd API
+    rewatch?: string;
+    imageUrl?: string;
+  };
+};
 
 function Film({ film }: FilmProps) {
-  const {
-    /* link, */ watchedDate,
-    rewatch,
-    filmTitle,
-    filmYear,
-    memberRating,
-    imageUrl,
-  } = film;
-  const ratingStars = convertRatingToStars(memberRating);
-  const formattedDateWatched = new Date(watchedDate).toLocaleDateString('en-UK', {
-    day: '2-digit',
-    month: 'short',
-  });
+  const { filmTitle, filmYear, watchedDate, memberRating, rewatch, imageUrl } = film;
+
+  // Use the proper utility function to handle half-stars
+  const ratingStars = memberRating ? convertRatingToStars(memberRating) : null;
+
+  // Format date for better display
+  const formatDate = (dateString: string) => {
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      });
+    } catch (error) {
+      // Log the error properly or handle it according to your needs
+      console.error('Error formatting date:', error);
+      return dateString; // Return the original string as fallback
+    }
+  };
 
   return (
-    <div className='film-container'>
-      <div className='image-container'>
-        {/* Conditionally render the imageUrl */}
+    <div className={styles.filmContainer}>
+      <div className={styles.imageContainer}>
         {imageUrl ? (
-          <div className='image-wrapper'>
+          <div className={styles.imageWrapper}>
             <Image
-              src={`${imageUrl}`}
+              src={imageUrl}
               alt={filmTitle}
-              width={150}
-              height={225}
-              className='film-image'
-              style={{ borderRadius: '5px' }}
+              width={80}
+              height={120}
+              className={styles.filmImage}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
-            <div className='overlay'>
-              <span className='film-title'>
-                {filmTitle} ({filmYear})
-              </span>
-            </div>
           </div>
         ) : (
-          <div className='placeholder-image'>No Image Available</div>
+          <div className={styles.placeholderImage}>No Image</div>
         )}
       </div>
-      <div className='film-details'>
-        <div className='film-meta'>
-          <div className='rating-container'>
-            {ratingStars && <span className='rating'>{ratingStars}</span>}
+      <div className={styles.filmDetails}>
+        <div className={styles.filmTitle}>
+          {filmTitle} {filmYear && `(${filmYear})`}
+        </div>
+        <div className={styles.filmMeta}>
+          <div className={styles.ratingContainer}>
+            {ratingStars && <span className={styles.rating}>{ratingStars}</span>}
             {rewatch === 'Yes' && (
-              <span className='rewatch-icon'>
+              <span className={styles.rewatchIcon} title='Rewatch'>
                 <AutorenewIcon fontSize='small' />
               </span>
             )}
           </div>
-          <span className='watched-date'>{formattedDateWatched}</span>
+          <span className={styles.watchedDate}>Watched: {formatDate(watchedDate)}</span>
         </div>
       </div>
     </div>
   );
 }
+
 export default Film;

@@ -24,7 +24,7 @@ export async function GET(request: Request) {
     }
 
     const res = await fetch(
-      `https://ws.audioscrobbler.com/2.0/?method=${endpointMap[category]}&user=${LASTFM_USERNAME}&api_key=${LASTFM_API_KEY}&format=json&period=${period}&limit=10`
+      `https://ws.audioscrobbler.com/2.0/?method=${endpointMap[category]}&user=${LASTFM_USERNAME}&api_key=${LASTFM_API_KEY}&format=json&period=${period}&limit=20`
     );
     const json = await res.json();
     return NextResponse.json(json, { status: 200 });

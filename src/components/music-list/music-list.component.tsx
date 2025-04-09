@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Category, Period } from '@/app/api/lastfm/route';
 import MusicItem, { LastFmData } from '../music-item/music-item.component';
 import Spinner from '../spinner/spinner.component';
-import './music-list.styles.scss';
+import styles from './music-list.module.scss'; // Changed to use CSS modules
 
 function MusicList() {
   const [category, setCategory] = useState<Category>('albums'); // tracks, albums, artists
@@ -38,34 +38,36 @@ function MusicList() {
   }, [category, period]);
 
   return (
-    <div className='music-container'>
-      <div className='dropdown-container'>
-        <h2>Top</h2>
-        <select
-          className='dropdown-menu'
-          value={category}
-          onChange={(e) => setCategory(e.target.value as Category)}>
-          <option value='tracks'>tracks</option>
-          <option value='albums'>albums</option>
-          <option value='artists'>artists</option>
-        </select>
-        <h2>over the last</h2>
-        <select
-          className='dropdown-menu'
-          value={period}
-          onChange={(e) => setPeriod(e.target.value as Period)}>
-          <option value='7day'>7 days</option>
-          <option value='1month'>month</option>
-          <option value='6month'>6 months</option>
-          <option value='12month'>12 months</option>
-        </select>
+    <div className={styles.musicContainer}>
+      <div className={styles.dropdownContainer}>
+        <h2>Recent Music</h2>
+        <div className={styles.dropdownWrapper}>
+          <select
+            className='dropdown-menu'
+            value={category}
+            onChange={(e) => setCategory(e.target.value as Category)}>
+            <option value='tracks'>tracks</option>
+            <option value='albums'>albums</option>
+            <option value='artists'>artists</option>
+          </select>
+          <span>over the last</span>
+          <select
+            className='dropdown-menu'
+            value={period}
+            onChange={(e) => setPeriod(e.target.value as Period)}>
+            <option value='7day'>7 days</option>
+            <option value='1month'>month</option>
+            <option value='6month'>6 months</option>
+            <option value='12month'>12 months</option>
+          </select>
+        </div>
       </div>
       {isLoading ? (
-        <div className='spinner-container'>
+        <div className={styles.spinnerContainer}>
           <Spinner type='lastfm' />
         </div>
       ) : (
-        <div className='music-list'>
+        <div className={styles.musicList}>
           {lastFmData.map((item, index) => (
             <MusicItem key={index} item={item} />
           ))}

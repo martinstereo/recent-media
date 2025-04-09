@@ -2,76 +2,70 @@
 import { useState, useEffect } from 'react';
 import styles from './navbar.module.scss';
 
-function Navbar() {
-  const [activeSection, setActiveSection] = useState('films');
-  const [showTitle, setShowTitle] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+type SectionType = 'films' | 'books' | 'music';
 
+interface NavbarProps {
+  activeSection: SectionType;
+  setActiveSection: (section: SectionType) => void;
+}
+
+function Navbar({ activeSection, setActiveSection }: NavbarProps) {
+  const [isCompact, setIsCompact] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Set up scroll listener for compact navbar effect
+  // and resize listener for mobile detection
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-
-      // Hide title when scrolling down, show when scrolling up
-      if (scrollPosition > lastScrollY && scrollPosition > 50) {
-        setShowTitle(false);
-      } else if (scrollPosition < lastScrollY) {
-        setShowTitle(true);
-      }
-      setLastScrollY(scrollPosition);
-
-      // Get positions of each section
-      const filmSection = document.getElementById('films-section')?.offsetTop || 0;
-      const musicSection = document.getElementById('music-section')?.offsetTop || 0;
-      const booksSection = document.getElementById('books-section')?.offsetTop || 0;
-
-      // Set active based on scroll position
-      const adjustedPosition = scrollPosition + 100;
-      if (adjustedPosition >= booksSection) {
-        setActiveSection('books');
-      } else if (adjustedPosition >= musicSection) {
-        setActiveSection('music');
-      } else if (adjustedPosition >= filmSection) {
-        setActiveSection('films');
-      }
+      setIsCompact(window.scrollY > 20);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check on mount
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 800);
+    };
 
-  const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(`${sectionId}-section`);
-    if (section) {
-      const navHeight = document.querySelector(`.${styles.container}`)?.clientHeight || 0;
-      window.scrollTo({
-        top: section.offsetTop - navHeight - 10,
-        behavior: 'smooth',
-      });
-      setActiveSection(sectionId);
-    }
+    // Initialize on mount
+    handleResize();
+
+    // Add event listeners
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+
+    // Clean up event listeners
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  // Handle section click
+  const handleSectionClick = (section: SectionType) => {
+    setActiveSection(section);
   };
 
   return (
-    <div className={`${styles.container} ${showTitle ? '' : styles.compact}`}>
+    <header className={`${styles.container} ${isCompact ? styles.compact : ''}`}>
       <div className={styles.titleContainer}>
-        <h1 className={styles.navbarTitle}>martin&apos;s recent media</h1>
+        <h1 className={styles.navbarTitle}>Martin&apos;s Recent Media</h1>
       </div>
 
-      <nav className={styles.navigation}>
-        <ul className={styles.navLinks}>
-          <li className={activeSection === 'films' ? styles.active : ''}>
-            <button onClick={() => scrollToSection('films')}>Films</button>
-          </li>
-          <li className={activeSection === 'music' ? styles.active : ''}>
-            <button onClick={() => scrollToSection('music')}>Music</button>
-          </li>
-          <li className={activeSection === 'books' ? styles.active : ''}>
-            <button onClick={() => scrollToSection('books')}>Books</button>
-          </li>
-        </ul>
-      </nav>
-    </div>
+      {/* Only show navigation on mobile */}
+      {isMobile && (
+        <nav className={styles.navigation}>
+          <ul className={styles.navLinks}>
+            <li className={activeSection === 'films' ? styles.active : ''}>
+              <button onClick={() => handleSectionClick('films')}>Films</button>
+            </li>
+            <li className={activeSection === 'books' ? styles.active : ''}>
+              <button onClick={() => handleSectionClick('books')}>Books</button>
+            </li>
+            <li className={activeSection === 'music' ? styles.active : ''}>
+              <button onClick={() => handleSectionClick('music')}>Music</button>
+            </li>
+          </ul>
+        </nav>
+      )}
+    </header>
   );
 }
 

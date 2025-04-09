@@ -42,8 +42,8 @@ function MusicItem({ item }: MusicItemProps) {
   const artistName = !isArtist && 'artist' in item ? item.artist.name : null;
   const imageUrl = image[3]?.['#text']?.trim();
 
-  const nameRef = useRef<HTMLParagraphElement>(null);
-  const artistRef = useRef<HTMLParagraphElement>(null);
+  const nameRef = useRef<HTMLDivElement>(null);
+  const artistRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const checkOverflow = (element: HTMLElement | null) => {
@@ -51,10 +51,10 @@ function MusicItem({ item }: MusicItemProps) {
 
       const hasOverflow = element.scrollWidth > element.clientWidth;
       if (hasOverflow) {
-        element.classList.add('scrollingText');
+        element.classList.add(styled.scrollingText);
         element.style.setProperty('--text-width', `${element.scrollWidth}px`);
       } else {
-        element.classList.remove('scrollingText');
+        element.classList.remove(styled.scrollingText);
         element.style.removeProperty('--text-width');
       }
     };
@@ -69,21 +69,21 @@ function MusicItem({ item }: MusicItemProps) {
         <Image
           src={imageUrl && imageUrl !== '' ? imageUrl : '/defaultLastFMImage.png'}
           alt={itemName}
-          width={150}
-          height={150}
+          width={80}
+          height={80}
           style={{ borderRadius: '5px' }}
         />
       </div>
       <div className={styled.textContainer}>
-        <p ref={nameRef} className={styled.scrollingText}>
+        <div ref={nameRef} className={styled.itemName}>
           {itemName}
-        </p>
+        </div>
         {!isArtist && artistName && (
-          <p ref={artistRef} className={styled.scrollingText}>
+          <div ref={artistRef} className={styled.artistName}>
             {artistName}
-          </p>
+          </div>
         )}
-        <p className={styled.playCount}>{playcount} plays</p>
+        <div className={styled.playCount}>{playcount} plays</div>
       </div>
     </div>
   );

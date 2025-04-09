@@ -1,0 +1,82 @@
+@import '../../styles/variables.scss';
+
+.filmsContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-dark);
+  border-radius: var(--border-radius);
+  height: 100%;
+  min-height: calc(100vh - 150px); /* Ensure minimum height */
+  overflow: hidden;
+}
+
+.filmsHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.15);
+
+  h2 {
+    color: #EEEEEE;
+    font-weight: 600;
+    margin: 0;
+  }
+}
+
+.filmListContainer {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-md);
+  overflow-y: auto;
+  flex-grow: 1;
+  width: 100%; /* Ensure full width */
+
+  > div {
+    width: 100%;
+    margin-bottom: var(--spacing-md);
+  }
+}
+
+.spinnerContainer {
+  height: 250px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.errorMessage {
+  color: #ff6b6b;
+  background-color: rgba(255, 107, 107, 0.1);
+  padding: var(--spacing-md);
+  margin: var(--spacing-md);
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+// Hide content visually but keep it accessible to screen readers
+:global(.sr-only) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@media (max-width: 800px) {
+  .filmsContainer {
+    height: 100%;
+  }
+
+  .filmListContainer {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+}

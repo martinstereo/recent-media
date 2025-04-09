@@ -1,92 +1,109 @@
 .bookCard {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 18%; /* Allows 5 items per row with space-between */
-  margin-bottom: 1.5rem; /* Vertical spacing between rows */
-  position: relative; /* Added to create stacking context */
-  padding-top: 8px; /* Add padding at top to allow space for hover effect */
+  width: 100%;
+  background-color: #2D333B;
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
 }
 
 .bookCover {
+  flex-shrink: 0;
   position: relative;
-  width: 150px;
-  height: 225px;
-  margin-bottom: 0.5rem;
+  width: 80px;
+  height: 120px;
+  margin-right: 15px;
   border-radius: 5px;
   overflow: hidden;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* Updated for cleaner look */
-  transition: all 0.3s ease;
-  z-index: 1;
-
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
-  }
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 
 .coverImage {
   object-fit: cover;
-  border-radius: 5px;
 }
 
 .bookInfo {
-  width: 100%;
-  text-align: center;
-  height: 100px; // Fixed height for text content area
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .bookTitle {
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  margin: 0.3rem 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin: 0 0 8px;
   color: #EEEEEE;
 }
 
 .bookAuthor {
-  font-size: 0.85rem;
-  margin: 0.1rem 0;
-  color: #EEEEEE; // Updated from #aaa to match global style
+  font-size: 0.95rem;
+  margin: 0 0 8px;
+  color: #EEEEEE;
 }
 
 .bookDate {
-  font-size: 0.8rem;
-  margin: 0.1rem 0;
-  color: #EEEEEE; // Updated from #777 to match global style
+  display: inline-block;
+  font-size: 0.95rem;
+  color: #d4d4d4;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 3px 8px;
+  border-radius: 4px;
+  max-width: fit-content;
+  margin-bottom: 8px;
 }
 
 .ratingContainer {
-  margin-top: 0.3rem;
+  margin-top: 4px;
 }
 
 .filledStar {
-  color: gold;
-  font-size: 0.9rem;
+  color: #FFD369;
+  font-size: 1.25rem;  /* Increased from 1rem */
+  letter-spacing: 2px; /* Slightly increased spacing */
 }
 
 .emptyStar {
-  color: #EEEEEE; // Updated from #555 to match global style
-  font-size: 0.9rem;
+  color: rgba(238, 238, 238, 0.3);
+  font-size: 1.25rem;  /* Increased from 1rem */
+  letter-spacing: 2px; /* Slightly increased spacing */
 }
 
 @media (max-width: 800px) {
   .bookCard {
-    margin: 0 0.25rem;
-    min-width: 110px; // Reduced for better mobile fit
+    padding: 12px;
   }
 
   .bookCover {
-    width: 100px; // Reduced for mobile
-    height: 150px; // Reduced for mobile
+    width: 60px;
+    height: 90px;
+    margin-right: 12px;
   }
 
-  .bookTitle, .bookAuthor, .bookDate {
-    max-width: 100px;
-    font-size: smaller;
+  .bookTitle {
+    font-size: 0.95rem;
+  }
+
+  .bookAuthor {
+    font-size: 0.85rem;
+  }
+
+  .bookDate {
+    font-size: 0.85rem;
+    padding: 2px 6px;
+  }
+
+  .filledStar, .emptyStar {
+    font-size: 1.1rem;  /* Increased from 0.9rem */
   }
 }

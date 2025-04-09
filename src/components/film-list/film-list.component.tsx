@@ -4,7 +4,7 @@ import Spinner from '../spinner/spinner.component';
 import { useEffect, useState } from 'react';
 
 import { LetterboxdFilm } from '@/app/api/letterboxd/route';
-import './film-list.styles.scss';
+import styles from './film-list.module.scss';
 
 const SPINNER_TYPE = 'letterboxd';
 
@@ -13,10 +13,12 @@ function FilmList() {
     films: LetterboxdFilm[];
   } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchLetterboxdData = async () => {
       setIsLoading(true);
+      setError(null);
       try {
         const username = 'martinstereo';
         const response = await fetch(`/api/letterboxd?username=${username}`, {
@@ -25,13 +27,19 @@ function FilmList() {
             'Content-Type': 'application/json',
           },
         });
+
+        if (!response.ok) {
+          throw new Error(`Error ${response.status}: Failed to fetch films`);
+        }
+
         const result = await response.json();
         setLetterboxdData({
-          films: result.films.slice(0, 10),
+          films: result.films.slice(0, 20),
         });
-        setIsLoading(false);
       } catch (error) {
         console.error(error);
+        setError(error instanceof Error ? error.message : 'Failed to load films');
+      } finally {
         setIsLoading(false);
       }
     };
@@ -40,22 +48,32 @@ function FilmList() {
   }, []);
 
   return (
-    <div className='films-container'>
-      <div className='films-header'>
-        <h2>Recent Films</h2>
+    <section className={styles.filmsContainer} aria-labelledby='films-heading'>
+      <div className={styles.filmsHeader}>
+        <h2 id='films-heading'>Recent Films</h2>
       </div>
-      {!isLoading && letterboxdData ? (
-        <div className='film-list-container'>
-          {letterboxdData.films.map((film, index) => (
-            <Film key={index} film={film} />
-          ))}
-        </div>
-      ) : (
-        <div className='spinner-container'>
-          <Spinner type={SPINNER_TYPE} />
+
+      {error && (
+        <div className={styles.errorMessage} role='alert'>
+          {error}
         </div>
       )}
-    </div>
+
+      {isLoading ? (
+        <div className={styles.spinnerContainer} aria-live='polite'>
+          <Spinner type={SPINNER_TYPE} />
+          <span className='sr-only'>Loading films...</span>
+        </div>
+      ) : (
+        <div className={styles.filmListContainer} role='list' aria-label='Film list'>
+          {letterboxdData?.films.map((film, index) => (
+            <div key={index} role='listitem'>
+              <Film film={film} />
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
   );
 }
 export default FilmList;

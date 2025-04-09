@@ -3,32 +3,56 @@
   flex-direction: column;
   background-color: #222831;
   border-radius: 10px;
+  height: 100%;
+  min-height: calc(100vh - 150px); /* Ensure minimum height */
+  overflow: hidden;
 }
 
 .booksHeader {
-  max-height: 4rem;
-  white-space: nowrap;
-  width: fit-content;
+  width: 100%;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  text-align: left;
-  padding-left: 2rem;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.15);
+
+  h2 {
+    color: #EEEEEE;
+    font-weight: 600;
+    margin: 0;
+  }
 }
 
 .bookListContainer {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between; // This aligns 1st and last items to edges
-  padding: 0 2rem;
+  flex-direction: column;
+  padding: 1rem;
   overflow-y: auto;
+  flex-grow: 1;
+  width: 100%; /* Ensure full width */
 }
 
-/* Add this to ensure each book takes exactly 1/5 of the space */
-.bookListContainer::after {
-  content: "";
-  flex: 0 0 18%; /* Same width as .bookCard */
+.bookSection {
+  margin-bottom: 2rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #FFD369;
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.emptyMessage {
+  font-size: 0.9rem;
+  color: #aaa;
+  font-style: italic;
+  padding: 0.5rem 0;
 }
 
 .spinnerContainer {
@@ -42,23 +66,19 @@
 
 @media (max-width: 800px) {
   .booksContainer {
-    padding: 0 0.5em;
+    height: 100%;
   }
-  .booksHeader {
-    padding-left: 0;
-  }
+
   .bookListContainer {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    max-width: 100%;
-    gap: 1.2em;
-    padding-bottom: 1rem;
-    padding-left: 1rem;
-    justify-content: flex-start;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-      display: none;
-    }
+    flex-grow: 1;
+  }
+
+  .sectionTitle {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .bookSection {
+    margin-bottom: 1.5rem;
   }
 }

@@ -1,51 +1,63 @@
 .page {
-  font-family: var(--font-geist-sans);
   display: flex;
   flex-direction: column;
-  gap: 0.75rem; // Reduced from 2rem to bring lists closer together
   min-height: 100vh;
-  padding-top: 80px; /* Add padding to account for the fixed navbar height */
+  background-color: #222831;
+  color: #EEEEEE;
 }
 
 .header {
-  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 
 .main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  max-width: 1400px;
-  margin: 0 auto;
+  padding-top: 80px; /* Space for fixed header */
+  padding-bottom: 20px;
   width: 100%;
-  padding: 0 1rem;
 }
 
-.main ol {
-  font-family: var(--font-geist-mono);
-  padding-left: 0;
-  margin: 0;
-  font-size: 14px;
-  line-height: 24px;
-  letter-spacing: -0.01em;
-  list-style-position: inside;
+/* This is the critical part - creates three fixed columns */
+.mediaContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Three equal columns */
+  grid-gap: 30px; /* Increased gap for better separation */
+  padding: 0 20px;
+  max-width: 1800px;
+  margin: 0 auto;
 }
 
 .section {
-  margin-bottom: 1rem; // Reduced spacing between sections
-  padding-top: 0.5rem; // Reduced from 1rem
+  min-height: calc(100vh - 120px); /* Viewport height minus header and some padding */
+  background-color: transparent; /* Make container background transparent */
+  overflow: hidden;
+  width: 100%; /* Ensure full width within its column */
 }
 
-@media screen and (max-width: 800px) {
-  .page {
-    gap: 0.5rem; // Even tighter spacing on mobile
+.visible {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Mobile styles */
+@media (max-width: 800px) {
+  .main {
+    padding-top: 70px;
   }
 
-  .main {
-    padding: 0;
+  .mediaContainer {
+    display: block;
+    padding: 0 10px;
   }
 
   .section {
-    margin-bottom: 0.75rem;
+    min-height: calc(100vh - 100px);
+    margin-bottom: 20px;
   }
 }
