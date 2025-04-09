@@ -1,7 +1,15 @@
 :root {
+  // Fonts
   --font-geist-sans: 'Geist', sans-serif;
   --font-geist-mono: 'Geist Mono', monospace;
 
+  // Colors
+  --background-dark: #222831;
+  --background-lighter: #393E46;
+  --text-primary: #EEEEEE;
+  --text-secondary: #AAA;
+  --accent-color: #FFD369;
+  --overlay-gradient: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
 
   // Spacing
   --spacing-xs: 0.25rem;

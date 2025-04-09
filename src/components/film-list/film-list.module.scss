@@ -1,12 +1,10 @@
-@import '../../styles/variables.scss';
-
 .filmsContainer {
   display: flex;
   flex-direction: column;
-  background-color: var(--background-dark);
-  border-radius: var(--border-radius);
+  background-color: #222831; // Use direct color instead of var
+  border-radius: 10px;
   height: 100%;
-  min-height: calc(100vh - 150px); /* Ensure minimum height */
+  min-height: calc(100vh - 150px);
   overflow: hidden;
 }
 
